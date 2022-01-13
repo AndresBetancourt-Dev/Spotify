@@ -10,7 +10,7 @@ import { RiCompassFill } from "react-icons/ri";
 
 export const Sidebar = () => {
     return (
-        <aside className="flex flex-col fixed top-0 z-40 p-4 items-center bg-black w-[5em] h-screen space-y-8">
+        <aside className="flex flex-col fixed top-0 z-40 p-4 items-center bg-black w-24 h-screen space-y-8">
             <Image src={"https://rb.gy/xkacau"} width={56} height={56} objectFit="contain" />
             <div className="flex flex-col space-y-8">
                 <HomeIcon className="sidebarIcon text-white opacity-[0.85]" />
