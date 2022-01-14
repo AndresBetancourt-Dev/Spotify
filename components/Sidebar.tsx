@@ -10,15 +10,15 @@ import { RiCompassFill } from "react-icons/ri";
 
 export const Sidebar = () => {
     return (
-        <aside className="flex flex-col fixed top-0 z-40 p-4 items-center bg-black w-24 h-screen space-y-8">
+        <aside className="sidebar">
             <Image src={"https://rb.gy/xkacau"} width={56} height={56} objectFit="contain" />
             <div className="flex flex-col space-y-8">
-                <HomeIcon className="sidebarIcon text-white opacity-[0.85]" />
-                <RiCompassFill className="sidebarIcon text-2xl" />
-                <FaMicrophoneAlt className="sidebarIcon ml-1" />
-                <ChartBarIcon className="sidebarIcon" />
-                <ClockIcon className="sidebarIcon" />
-                <DotsHorizontalIcon className="sidebarIcon" /></div>
+                <HomeIcon className="sidebar-icon text-white opacity-[0.85]" />
+                <RiCompassFill className="sidebar-icon text-2xl" />
+                <FaMicrophoneAlt className="sidebar-icon ml-1" />
+                <ChartBarIcon className="sidebar-icon" />
+                <ClockIcon className="sidebar-icon" />
+                <DotsHorizontalIcon className="sidebar-icon" /></div>
         </aside>
     )
 }

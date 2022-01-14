@@ -7,7 +7,7 @@ interface SearchProps {
 
 export const Search = ({ search, setSearch }: SearchProps) => {
     return (
-        <div className="flex items-center max-w-[1150px] bg-[#1a1a1a] rounded-full overflow-hidden border-2 border-[#333333] p-1.5 px-5 pr-8">
+        <div className="search">
             <div className="h-4 w-4 rounded-full border-2 flex-shrink-0 animate-pulse" />
             <input className="bg-[#1a1a1a] text-white border-none outline-none lg:w-full focus:ring-0 placeholder-[#fafafa] text-xs" type="text" value={search} onChange={event => setSearch(event.target.value)} placeholder="Search..." />
             <div className="flex items-center divide-dotted divide-x-2 divide-[#333333] ml-auto">
