@@ -32,4 +32,10 @@
   .poster {
     @apply w-[260px] h-[360px] rounded-[50px] overflow-hidden relative text-white/80 cursor-pointer hover:scale-105 hover:text-white/100 transition duration-200 ease-out mx-auto;
   }
+  .genre {
+    @apply bg-[#101010] text-[#CECECE] border border-[#484848] rounded-xl py-2.5 px-3.5 text-[11px] font-bold cursor-default;
+  }
+  .button {
+    @apply text-[#cecece] bg-[#1a1a1a] text-[13px] py-3.5 px-4 rounded-2xl w-full font-bold bg-opacity-80 hover:bg-opacity-100 transition ease-out;
+  }
 }
