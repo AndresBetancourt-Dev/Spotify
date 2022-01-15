@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSession } from 'next-auth/react';
-import { Search } from "./Search"
+import { Search } from "./Search";
 import { Poster } from "./Poster";
 import { Track as TrackComponent } from "./Track";
 import Track from "../types/Track";
