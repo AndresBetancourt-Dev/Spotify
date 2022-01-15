@@ -1,11 +1,5 @@
 import NextAuth from "next-auth";
-import {
-  Account as AC,
-  JWT as JWTCore,
-  Profile as P,
-  User as U,
-  Session as S,
-} from "next-auth";
+import { Session as S } from "next-auth/core/types";
 
 declare module "next-auth" {
   /**
@@ -26,8 +20,8 @@ declare module "next-auth" {
     idToken?: string;
     accessTokenExpires?: number;
   }
-  export interface Session extends Session {
-    user: User | unknown;
+  export interface Session extends S {
+    user: User;
     accessToken: string | unknown;
     expires: Date;
   }
