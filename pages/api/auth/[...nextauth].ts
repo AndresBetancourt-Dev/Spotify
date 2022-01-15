@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 
 /**
@@ -78,7 +78,7 @@ export default NextAuth({
       return refreshAccessToken(token);
     },
     async session({ session, token }) {
-      session.user = token.user;
+      session.user = token.user as User;
       session.accessToken = token.accessToken;
       session.error = token.error;
 
