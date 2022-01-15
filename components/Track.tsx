@@ -4,11 +4,18 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { playingTrackState, playState } from "../atoms/playerAtom";
 import { ImHeadphones } from "react-icons/im";
+import Track from "../types/Track";
 
-export const Track = ({ track, chooseTrack }) => {
+interface TrackProps {
+    track: Track,
+    chooseTrack: (track: Track) => void
+}
+
+
+export const Track = ({ track, chooseTrack }: TrackProps) => {
     const [hasLiked, setHasLiked] = useState(false);
     const [play, setPlay] = useRecoilState(playState);
-    const [playingTrack, setPlayingTrack] = useRecoilState(playingTrackState);
+    const [playingTrack,] = useRecoilState(playingTrackState);
 
     const handlePlay = () => {
         chooseTrack(track);

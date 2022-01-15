@@ -1,7 +1,11 @@
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import SpotifyWebApi from "spotify-web-api-node";
 import { playingTrackState } from "../atoms/playerAtom";
+import Track from "../types/Track";
 import { Body } from "./Body"
+import { Player } from "./Player";
 import { Right } from "./Right"
 import { Sidebar } from "./Sidebar"
 
@@ -11,15 +15,31 @@ const spotifyApi = new SpotifyWebApi({
 })
 
 export const Dashboard = () => {
+
+    const { data: session } = useSession();
+    const { accessToken } = session;
+
     const [playingTrack, setPlayingTrack] = useRecoilState(playingTrackState);
-    const chooseTrack = (track) => {
+    const [showPlayer, setShowPlayer] = useState(false);
+
+    useEffect(() => {
+        if (playingTrack.uri) setShowPlayer(true);
+
+    }, [playingTrack]);
+
+    const chooseTrack = (track: Track) => {
         setPlayingTrack(track);
     }
     return (
-        <main>
+        <main className="main">
             <Sidebar />
             <Body spotifyApi={spotifyApi} chooseTrack={chooseTrack} />
-            <Right />
+            <Right spotifyApi={spotifyApi} chooseTrack={chooseTrack} />
+            {showPlayer &&
+                <div className="fixed bottom-0 inset-x-0 z-50">
+                    <Player accessToken={accessToken} trackUri={playingTrack.uri} />
+                </div>
+            }
         </main>
     )
 }

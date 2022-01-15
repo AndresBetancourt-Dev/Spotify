@@ -11,17 +11,35 @@
 }
 
 @layer components {
+  .main {
+    @apply flex min-h-screen min-w-max bg-black lg:pb-24;
+  }
   .sidebar {
     @apply flex flex-col fixed top-0 z-40 p-4 items-center bg-black w-24 h-screen space-y-8;
   }
   .body {
-    @apply bg-black ml-24 py-4 space-y-8 flex-grow md:mr-2.5;
+    @apply bg-black ml-24 py-4 space-y-8 md:max-w-6xl md:mr-2.5 flex-grow;
   }
   .sidebar-icon {
     @apply h-6 text-[#808080] cursor-pointer;
   }
   .search {
     @apply flex items-center max-w-[1150px] bg-[#1a1a1a] rounded-full overflow-hidden border-2 border-[#333333] p-1.5 px-5 pr-8;
+  }
+  .search-icon {
+    @apply h-4 w-4 rounded-full border-2 flex-shrink-0 animate-pulse;
+  }
+  .search-input {
+    @apply bg-[#1a1a1a] text-white border-none outline-none lg:w-full focus:ring-0 placeholder-[#fafafa] text-xs;
+  }
+  .search-filters {
+    @apply flex items-center divide-dotted divide-x-2 divide-[#333333] ml-auto;
+  }
+  .search-tags {
+    @apply flex space-x-2 pr-5;
+  }
+  .other-filters {
+    @apply flex items-center space-x-1.5 text-[#cecece] pl-4;
   }
   .tag {
     @apply py-1.5 px-3 text-[#CECECE] bg-[#282828] rounded-xl text-xs font-bold border-2 border-[#484848];
@@ -32,10 +50,40 @@
   .poster {
     @apply w-[260px] h-[360px] rounded-[50px] overflow-hidden relative text-white/80 cursor-pointer hover:scale-105 hover:text-white/100 transition duration-200 ease-out mx-auto;
   }
+  .poster-image {
+    @apply h-full w-full object-cover absolute inset-0 rounded-[50px] opacity-80 group-hover:opacity-100;
+  }
+  .poster-info {
+    @apply absolute bottom-10 inset-x-0 ml-4 flex items-center space-x-3.5;
+  }
+  .poster-play {
+    @apply h-10 w-10 bg-[#15883e] rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-[#1db954];
+  }
+  .poster-text {
+    @apply text-[15px];
+  }
+  .tracks {
+    @apply flex gap-x-8 absolute min-w-full md:relative ml-6;
+  }
+  .genres-container {
+    @apply hidden xl:inline max-w-[270px];
+  }
+  .genres-title {
+    @apply text-white font-bold mb-3;
+  }
+  .genres {
+    @apply flex gap-x-2 gap-y-2.5 flex-wrap mb-3;
+  }
   .genre {
     @apply bg-[#101010] text-[#CECECE] border border-[#484848] rounded-xl py-2.5 px-3.5 text-[11px] font-bold cursor-default;
   }
   .button {
     @apply text-[#cecece] bg-[#1a1a1a] text-[13px] py-3.5 px-4 rounded-2xl w-full font-bold bg-opacity-80 hover:bg-opacity-100 transition ease-out;
+  }
+  .croppedIcon {
+    clip-path: inset(0 50% 0 0);
+  }
+  .playerIcon {
+    @apply transition ease-out transform hover:scale-105 hover:text-white;
   }
 }

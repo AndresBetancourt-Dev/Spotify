@@ -1,34 +1,35 @@
 import { useEffect, useState } from "react"
-import { useSession } from 'next-auth/react';
+import { useSession, Session } from 'next-auth/react';
 import { Search } from "./Search"
 import { Poster } from "./Poster";
-import { Track } from "./Track";
+import { Track as TrackComponent } from "./Track";
+import Track from "../types/Track";
 
+interface BodyProps {
+    spotifyApi: any,
+    chooseTrack: (track: Track) => void
+}
 
-export const Body = ({ spotifyApi, chooseTrack }) => {
+export const Body = ({ spotifyApi, chooseTrack }: BodyProps) => {
 
     const { data: session } = useSession();
     const { accessToken } = session;
     const [search, setSearch] = useState<string>("");
-    const [searchResults, setSearchResults] = useState<Array<Object>>([]);
-    const [newReleases, setNewReleases] = useState<Object[]>([]);
-
-
-
+    const [searchResults, setSearchResults] = useState<Array<Track>>([]);
+    const [newReleases, setNewReleases] = useState<Array<Track>>([]);
 
     useEffect(() => {
         if (!accessToken) return
         spotifyApi.setAccessToken(accessToken);
     }, [accessToken])
 
-    //Searching...
     useEffect(() => {
         if (!search) return setSearchResults([]);
         if (!accessToken) return;
 
-        spotifyApi.searchTracks(search).then((response) => {
+        spotifyApi.searchTracks(search).then((response: any) => {
             setSearchResults(
-                response.body.tracks.items.map((track) => {
+                response.body.tracks.items.map((track: any) => {
                     return {
                         id: track.id,
                         artist: track.artists[0].name,
@@ -42,13 +43,12 @@ export const Body = ({ spotifyApi, chooseTrack }) => {
         })
     }, [search, accessToken])
 
-    // New Releases...
     useEffect(() => {
         if (!accessToken) return;
 
-        spotifyApi.getNewReleases().then((res) => {
+        spotifyApi.getNewReleases().then((response: any) => {
             setNewReleases(
-                res.body.albums.items.map((track) => {
+                response.body.albums.items.map((track: any) => {
                     return {
                         id: track.id,
                         artist: track.artists[0].name,
@@ -63,18 +63,18 @@ export const Body = ({ spotifyApi, chooseTrack }) => {
 
 
     return (
-        <section className="body md:max-w-6x1">
+        <section className="body">
             <Search search={search} setSearch={setSearch} />
             <div className="poster-grid">
                 {searchResults.length === 0 ? newReleases.slice(0, 4).map((track) => (
                     <Poster key={track.id} track={track} chooseTrack={chooseTrack} />
                 )) : searchResults.slice(0, 4).map(track => (<Poster key={track.id} track={track} chooseTrack={chooseTrack} />))}
             </div>
-            <div className="flex gap-x-8 absolute min-w-full md:relative ml-6">
+            <div className="tracks">
                 {/* Genres */}
-                <div className="hidden xl:inline max-w-[270px]">
-                    <h2 className="text-white font-bold mb-3">Genres</h2>
-                    <div className="flex gap-x-2 gap-y-2.5 flex-wrap mb-3">
+                <div className="genres-container">
+                    <h2 className="genres-title">Genres</h2>
+                    <div className="genres">
                         <div className="genre">Classic</div>
                         <div className="genre">House</div>
                         <div className="genre">Minimal</div>
@@ -90,14 +90,14 @@ export const Body = ({ spotifyApi, chooseTrack }) => {
                     </button>
                 </div>
                 {/* Tracks */}
-                <div>
+                <div className="w-full pr-11">
                     <h2 className="text-white font-bold mb-3">{searchResults.length === 0 ? "New Releases" : "Tracks"}</h2>
                     <div className="space-y-3 border-2 border-[#262626] rounded-2xl p-3 bg-[#0D0D0D] overflow-y-scroll h-[1000px] md:h-96 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-thumb-rounded hover:scrollbar-thumb-gray-500 w-[830px]">
                         {searchResults.length === 0
                             ? newReleases
                                 .slice(4, newReleases.length)
                                 .map((track) => (
-                                    <Track
+                                    <TrackComponent
                                         key={track.id}
                                         track={track}
                                         chooseTrack={chooseTrack}
@@ -106,7 +106,7 @@ export const Body = ({ spotifyApi, chooseTrack }) => {
                             : searchResults
                                 .slice(4, searchResults.length)
                                 .map((track) => (
-                                    <Track
+                                    <TrackComponent
                                         key={track.id}
                                         track={track}
                                         chooseTrack={chooseTrack}
