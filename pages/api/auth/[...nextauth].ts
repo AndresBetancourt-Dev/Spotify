@@ -6,7 +6,7 @@ import SpotifyProvider from "next-auth/providers/spotify";
  * `accessToken` and `accessTokenExpires`. If an error occurs,
  * returns the old token and an error property
  */
-async function refreshAccessToken(token) {
+async function refreshAccessToken(token: any) {
   try {
     const url =
       "https://accounts.spotify.com/api/token?" +
@@ -62,14 +62,15 @@ export default NextAuth({
       if (account && user) {
         return {
           accessToken: account.access_token,
-          accessTokenExpires: Date.now() + account.expires_in * 1000,
+          accessTokenExpires:
+            Date.now() + (account.expires_in as number) * 1000,
           refreshToken: account.refresh_token,
           user,
         };
       }
 
       // Return previous token if the access token has not expired yet
-      if (Date.now() < token.accessTokenExpires) {
+      if (Date.now() < (token?.accessTokenExpires as number)) {
         return token;
       }
 

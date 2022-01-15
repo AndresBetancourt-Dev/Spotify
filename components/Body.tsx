@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useSession, Session } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { Search } from "./Search"
 import { Poster } from "./Poster";
 import { Track as TrackComponent } from "./Track";
@@ -13,7 +13,7 @@ interface BodyProps {
 export const Body = ({ spotifyApi, chooseTrack }: BodyProps) => {
 
     const { data: session } = useSession();
-    const { accessToken } = session;
+    const accessToken = session?.accessToken;
     const [search, setSearch] = useState<string>("");
     const [searchResults, setSearchResults] = useState<Array<Track>>([]);
     const [newReleases, setNewReleases] = useState<Array<Track>>([]);

@@ -16,7 +16,7 @@ interface RightProps {
 
 export const Right = ({ spotifyApi, chooseTrack }: RightProps) => {
     const { data: session } = useSession();
-    const { accessToken } = session;
+    const accessToken = session?.accessToken;
     const [recentlyPlayed, setRecentlyPlayed] = useState([]);
 
     /*     Recently Played Tracks... */

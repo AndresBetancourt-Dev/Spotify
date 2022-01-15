@@ -17,7 +17,7 @@ const spotifyApi = new SpotifyWebApi({
 export const Dashboard = () => {
 
     const { data: session } = useSession();
-    const { accessToken } = session;
+    const accessToken = session?.accessToken;
 
     const [playingTrack, setPlayingTrack] = useRecoilState(playingTrackState);
     const [showPlayer, setShowPlayer] = useState(false);
@@ -37,7 +37,7 @@ export const Dashboard = () => {
             <Right spotifyApi={spotifyApi} chooseTrack={chooseTrack} />
             {showPlayer &&
                 <div className="fixed bottom-0 inset-x-0 z-50">
-                    <Player accessToken={accessToken} trackUri={playingTrack.uri} />
+                    <Player accessToken={accessToken as string} trackUri={playingTrack.uri} />
                 </div>
             }
         </main>
